@@ -1,0 +1,17 @@
+# docker-compose -f my-compose-file.yml up
+services:
+  asbe:
+    image: asbe
+    ports:
+      - 9001:8080
+    build:
+      context: .
+      dockerfile: asbe/Dockerfile
+      
+  bidstur:
+    image: bidstur
+    ports:
+      - 9002:80
+    build:
+      context: .
+      dockerfile: bidstur/Dockerfile
