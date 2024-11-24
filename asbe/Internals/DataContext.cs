@@ -32,4 +32,9 @@ public class DataContext
             await pg.ExecuteAsync(q);
         }
     }
+
+    public NpgsqlConnection NewPgConnection()
+    {
+        return new NpgsqlConnection(_connection_string);
+    }
 }

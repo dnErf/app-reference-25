@@ -1,3 +1,4 @@
+using asbe.Endpoints;
 using asbe.Internals;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -6,7 +7,13 @@ var builder = WebApplication.CreateBuilder(args);
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
-builder.Services.AddTransient<DataContext>();
+// singleton
+builder.Services.AddSingleton<DataContext>();
+
+// scoped
+builder.Services.AddScoped<AuctionContext>();
+
+// -
 
 var app = builder.Build();
 
@@ -42,6 +49,8 @@ app.MapGet("/weatherforecast", () =>
         return forecast;
     })
     .WithName("GetWeatherForecast");
+
+app.MapAuctionQuery();
 
 app.Run();
 

@@ -22,10 +22,13 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 
-# environment variables
+# configuration
 .env
 .env.production
 .dev.vars
+appsettings.json
+appsettings.Development.json
+launchSettings.json
 
 # macOS-specific files
 .DS_Store
