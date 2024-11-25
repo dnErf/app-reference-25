@@ -7,6 +7,14 @@ var builder = WebApplication.CreateBuilder(args);
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
+builder.Services.AddCors(o =>
+{
+    o.AddPolicy("dev",p =>
+    {
+        p.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin();
+    });
+});
+
 // singleton
 builder.Services.AddSingleton<DataContext>();
 
@@ -20,6 +28,7 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
+    app.UseCors("dev");
     app.MapOpenApi();
 
     using (var scope = app.Services.CreateScope())
@@ -51,6 +60,7 @@ app.MapGet("/weatherforecast", () =>
     .WithName("GetWeatherForecast");
 
 app.MapAuctionQuery();
+app.MapAuctionMutations();
 
 app.Run();
 

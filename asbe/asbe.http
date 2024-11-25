@@ -1,6 +1,21 @@
-@asbe_HostAddress = http://localhost:9000
+@asbe_host = http://localhost:9000
 
-GET {{asbe_HostAddress}}/weatherforecast/
+GET {{asbe_host}}/weatherforecast/
 Accept: application/json
 
 ###
+
+GET {{asbe_host}}/ep/auctions
+
+###
+
+POST {{asbe_host}}/ep/auctions
+Content-Type: application/json
+
+{
+    "id": "ead84f33-3f6d-42b4-820b-1ef6c8cb7c70",
+    "userId": "a3b32e35-8c2a-48e4-8da5-bb8f1689ecfc",
+    "title": "test item",
+    "startingBid": 199.99
+}
+
