@@ -13,6 +13,11 @@ builder.Services.AddCors(o =>
     {
         p.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin();
     });
+    
+    o.AddPolicy("prod", p =>
+    {
+        p.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:9112", "http://ng-bidstur", "https://xcogo844csk8ws0kkgswc804.vdbx.duckdns.org");
+    });
 });
 
 // singleton
@@ -36,6 +41,10 @@ if (app.Environment.IsDevelopment())
         var ctx = scope.ServiceProvider.GetService<DataContext>();
         await ctx!.InitAsync();
     }
+}
+else
+{
+    app.UseCors("prod");
 }
 
 app.UseHttpsRedirection();
