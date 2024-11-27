@@ -17,6 +17,7 @@ public static class AuctionMutations
                 Id = Guid.Parse(auction.Id),
                 UserId = Guid.Parse(auction.UserId),
                 Title = auction.Title,
+                PicSrc = auction.PicSrc,
                 StartingBid = auction.StartingBid,
                 CurrentBid = auction.StartingBid,
                 IntervalBid = 0

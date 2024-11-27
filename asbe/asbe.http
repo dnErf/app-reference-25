@@ -16,6 +16,7 @@ Content-Type: application/json
     "id": "ead84f33-3f6d-42b4-820b-1ef6c8cb7c70",
     "userId": "a3b32e35-8c2a-48e4-8da5-bb8f1689ecfc",
     "title": "test item",
+    "pic_src": "https://picsum.photos/id/20/300/200",
     "startingBid": 199.99
 }
 

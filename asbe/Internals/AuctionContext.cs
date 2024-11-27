@@ -26,7 +26,7 @@ public class AuctionContext(DataContext ctx)
         var q = """
                 select id, user_id, title, current_bid, starting_bid, interval_bid, end_at
                 from bidstur_auctions
-                where bidstur_auctions.id == @Id
+                where bidstur_auctions.id = @Id
                 """;
 
         using (var pg = _ctx.NewPgConnection())
