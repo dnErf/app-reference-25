@@ -1,4 +1,5 @@
 using Dapper;
+using Microsoft.AspNetCore.Http.Connections;
 using Npgsql;
 
 namespace asbe.Internals;
@@ -9,7 +10,17 @@ public class DataContext
 
     public DataContext(IConfiguration config)
     {
-        _connection_string = config.GetConnectionString("PgDev");
+        // _connection_string = config.GetConnectionString("PgDev");
+        
+        if (config.GetValue<string>("ConnectionStrings:PgDev") is not null)
+        {
+            _connection_string = config.GetValue<string>("ConnectionStrings:PgDev");
+        }
+        else if (Environment.GetEnvironmentVariable("PgDev") is not null)
+        {
+            _connection_string = Environment.GetEnvironmentVariable("PgDev");
+        }
+        
         if (string.IsNullOrEmpty(_connection_string)) throw new ArgumentNullException(nameof(_connection_string));
     }
 

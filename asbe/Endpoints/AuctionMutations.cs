@@ -14,13 +14,13 @@ public static class AuctionMutations
         {
             await auctionCtx.NewAuctionAsync(new AuctionModel()
             {
-                Id = Guid.Parse(auction.Id),
-                UserId = Guid.Parse(auction.UserId),
-                Title = auction.Title,
-                PicSrc = auction.PicSrc,
-                StartingBid = auction.StartingBid,
-                CurrentBid = auction.StartingBid,
-                IntervalBid = 0
+                id = Guid.Parse(auction.id),
+                user_id = Guid.Parse(auction.userId),
+                title = auction.title,
+                pic_src = auction.picSrc,
+                starting_bid = auction.startingBid,
+                current_bid = auction.startingBid,
+                interval_bid = 0
             });
 
             var auctions = await auctionCtx.GetAllAuctionAsync();

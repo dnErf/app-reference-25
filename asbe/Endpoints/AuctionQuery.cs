@@ -1,4 +1,5 @@
 using asbe.Internals;
+using asbe.Models;
 
 namespace asbe.Endpoints;
 
@@ -11,7 +12,19 @@ public static class AuctionQuery
         g.MapGet("", async (AuctionContext auctionCtx) =>
         {
             var auctions = await auctionCtx.GetAllAuctionAsync();
-            return Results.Ok(auctions);
+
+            if (auctions == null)
+            {
+                return Results.BadRequest();
+            }
+            
+            var auctionList = new List<AuctionEntity>();
+            foreach (var auction in auctions)
+            {
+                auctionList.Add(auction.MapModelToEntity());
+            }
+            
+            return TypedResults.Ok(auctionList);
         });
 
         g.MapGet("/{id}", async (string id, AuctionContext auctionCtx) =>

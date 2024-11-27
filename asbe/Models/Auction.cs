@@ -1,48 +1,54 @@
-using System.ComponentModel.DataAnnotations.Schema;
+using System.Globalization;
 
 namespace asbe.Models;
 
 public record struct AuctionEntity()
 {
-    public string Id { get; init; } = Guid.NewGuid().ToString();
-    public string UserId { get; init; }
-    public string Title { get; init; }
-    public string PicSrc { get; init; }
-    public double StartingBid { get; init; } = 0;
-    public double CurrentBid { get; set; } = 0;
-    public double IntervalBid { get; init; } = 0;
-    public string EndAt { get; init; } = "";
+    public string id { get; init; } = Guid.NewGuid().ToString();
+    public string userId { get; init; }
+    public string title { get; init; }
+    public string picSrc { get; init; }
+    public decimal startingBid { get; init; } = 0;
+    public decimal currentBid { get; set; } = 0;
+    public decimal intervalBid { get; init; } = 0;
+    public string endAt { get; init; } = "";
 }
 
-[Table("bidstur_auctions")]
 public sealed class AuctionModel
 {
-    [Column("id")]
-    public Guid Id { get; init; } = Guid.NewGuid();
+    public Guid id { get; init; } = Guid.NewGuid();
     
-    [Column("user_id")]
-    public Guid UserId { get; init; } = Guid.NewGuid();
+    public Guid user_id { get; init; } = Guid.NewGuid();
     
-    [Column("title")]
-    public string Title { get; init; } = "";
+    public string title { get; init; } = "";
     
-    [Column("pic_src")]
-    public string PicSrc { get; init; } = "";
+    public string pic_src { get; init; } = "";
     
-    [Column("current_bid")]
-    public double CurrentBid { get; init; } = 0;
+    public decimal current_bid { get; init; } = 0;
     
-    [Column("starting_bid")]
-    public double StartingBid { get; init; } = 0;
+    public decimal starting_bid { get; init; } = 0;
     
-    [Column("interval_bid")]
-    public double IntervalBid { get; init; } = 0;
+    public decimal interval_bid { get; init; } = 0;
 
-    [Column("end_at")]
-    public DateTime EndAt { get; init; } = DateTime.UtcNow;
+    public DateTime end_at { get; init; } = DateTime.UtcNow;
 }
 
 public static class Auction
 {
-    
+    public static AuctionEntity MapModelToEntity(this AuctionModel model)
+    {
+        var entity = new AuctionEntity()
+        {
+            id = model.id.ToString(),
+            userId = model.user_id.ToString(),
+            title = model.title,
+            picSrc = model.pic_src,
+            currentBid = model.current_bid,
+            startingBid = model.starting_bid,
+            intervalBid = model.interval_bid,
+            endAt = model.end_at.ToString(CultureInfo.InvariantCulture),
+        };
+        
+        return entity;
+    }
 }

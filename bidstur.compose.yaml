@@ -8,10 +8,10 @@ services:
       context: .
       dockerfile: asbe/Dockerfile
       
-  bidstur:
-    image: bidstur
+  ng-bidstur:
+    image: ng-bidstur
     ports:
       - 9002:80
     build:
       context: .
-      dockerfile: bidstur/Dockerfile
+      dockerfile: ng-bidstur/Dockerfile
