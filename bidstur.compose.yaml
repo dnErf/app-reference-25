@@ -3,7 +3,7 @@ services:
   asbe:
     image: asbe
     ports:
-      - 9001:8080
+      - 9111:8080
     build:
       context: .
       dockerfile: asbe/Dockerfile
@@ -11,7 +11,7 @@ services:
   ng-bidstur:
     image: ng-bidstur
     ports:
-      - 9002:80
+      - 9112:80
     build:
       context: .
       dockerfile: ng-bidstur/Dockerfile
