@@ -30,7 +30,6 @@ pnpm-debug.log*
 appsettings.json
 appsettings.Development.json
 launchSettings.json
-environments/
 
 # macOS-specific files
 .DS_Store
