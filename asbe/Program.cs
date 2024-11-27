@@ -16,7 +16,7 @@ builder.Services.AddCors(o =>
     
     o.AddPolicy("prod", p =>
     {
-        p.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:9112", "http://ng-bidstur", "https://xcogo844csk8ws0kkgswc804.vdbx.duckdns.org");
+        p.AllowAnyHeader().AllowAnyMethod().WithOrigins("http://localhost:9112", "http://ng-bidstur", "https://i0kwo44co8ks4ogsc4kckw48.vdbx.duckdns.org");
     });
 });
 
