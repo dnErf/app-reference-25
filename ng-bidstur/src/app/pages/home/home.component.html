@@ -1,5 +1,7 @@
-<div class="grid grid-cols-3 md:grid-cols-4 gap-4 p-4">
-@for (a of auctions; track a.id) {
-    <app-auction-card [auction]="a" />
+@if (auctions.length > 0) {
+    <div class="grid grid-cols-3 md:grid-cols-4 gap-4 p-4">
+        @for (a of auctions; track a.id) {
+            <app-auction-card [auction]="a" />
+        }
+    </div>
 }
-</div>

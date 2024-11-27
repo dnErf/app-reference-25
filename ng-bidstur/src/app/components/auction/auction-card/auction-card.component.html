@@ -1,18 +1,15 @@
-@if (auction()?.id !== undefined)
-{
-    <div class="border p-4">
-        <a class="flex justify-center">
-            <img class="mb-4" src="https://picsum.photos/id/20/300/200" alt="product image" />
+<div class="border p-4">
+    <a class="flex justify-center">
+        <img class="mb-4" src="{{auction()?.picSrc}}" alt="product image" />
+    </a>
+    <div>
+        <a href="/auctions/{{auction()?.id}}">
+            {{ auction()?.title }}
         </a>
         <div>
-            <a href="/auctions/{{auction()?.id}}">
-                {{ auction()?.title }}
-            </a>
-            <div>
-                <small>
-                    $ {{ auction()?.currentBid }}
-                </small>
-            </div>
+            <small>
+                $ {{ auction()?.currentBid }}
+            </small>
         </div>
     </div>
-}
+</div>

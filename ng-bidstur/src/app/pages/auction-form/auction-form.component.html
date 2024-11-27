@@ -1,20 +1,25 @@
-<p>auction-form works!</p>
-<form [formGroup]="f" (ngSubmit)="onSubmit()">
-    <div>
-        <label>title</label>
-        <input type="text" formControlName="title" />
-    </div>
-    <div>
-        <label>starting price</label>
-        <input type="number" formControlName="startingBid" />
-    </div>
-    <div>
-        <label>allowed bid price</label>
-        <input type="number" formControlName="intervalBid" />
-    </div>
-    <div>
-        <button type="submit">
-            Submit
-        </button>
-    </div>
-</form>
+<div class="w-full flex justify-center pt-8">
+    <form [formGroup]="f" (ngSubmit)="onSubmit()" class="flex flex-col gap-8 text-xs md:w-1/2">
+        <div>
+            <label class="block">title</label>
+            <input type="text" formControlName="title" class="border rounded-sm w-full p-1 text-sm" />
+        </div>
+        <div>
+            <label class="block">Image</label>
+            <input type="file" formControlName="picSrc" class="border rounded-sm w-full p-1 text-sm" />
+        </div>
+        <div>
+            <label class="block">starting price</label>
+            <input type="number" formControlName="startingBid" class="border rounded-sm w-full p-1 text-sm" />
+        </div>
+        <div>
+            <label class="block">allowed bid price</label>
+            <input type="number" formControlName="intervalBid" class="border rounded-sm w-full p-1 text-sm" />
+        </div>
+        <div class="mx-auto">
+            <button type="submit" class="border text-sm rounded-sm px-2 py-1 block">
+                Submit
+            </button>
+        </div>
+    </form>
+</div>

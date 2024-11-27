@@ -1,5 +1,5 @@
 import {Component, inject} from '@angular/core';
-import {FormBuilder, ReactiveFormsModule} from '@angular/forms';
+import {FormBuilder, ReactiveFormsModule, Validators} from '@angular/forms';
 import {Auction, AuctionService} from '../../services/auction.service';
 
 @Component({
@@ -14,14 +14,13 @@ export class AuctionFormComponent {
     auctionService = inject(AuctionService);
     formBuilder = inject(FormBuilder);
     f = this.formBuilder.group({
-        title: [''],
+        title: ['', Validators.required],
+        picSrc: [''],
         startingBid: [0],
         intervalBid: [0]
     });
 
     onSubmit() {
-        // console.log('submit');
-        // console.log(this.f.value);
         let { title, startingBid } = this.f.value;
 
         if (title === null || title === undefined) {
