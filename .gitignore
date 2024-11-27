@@ -10,6 +10,7 @@ bin/
 obj/
 
 # generated
+.angular/
 .astro/
 .wrangler/
 
