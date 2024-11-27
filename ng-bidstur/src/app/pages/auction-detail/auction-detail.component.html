@@ -1,0 +1,60 @@
+<section class="flex md:flex-row p-4">
+    <div class="w-1/2 px-4">
+        <h2 class="text-lg font-semibold">
+            auction for this item
+        </h2>
+        <div class="mt-4 px-4">
+            <div class="border border-slate-50">
+                <div class="mt-2 flex justify-center">
+                    <img [src]="auction.picSrc" [alt]="auction.title" />
+                </div>
+                <div class="flex flex-row justify-between shadow-lg text-sm p-4">
+                    <table class="">
+                        <tr>
+                            <td class="px-1">
+                                current bid
+                            </td>
+                            <td class="px-2">
+                                <span>$ {{ auction.currentBid }}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="px-1">
+                                starting bid
+                            </td>
+                            <td class="px-2">
+                                <span>$ {{ auction.startingBid }}</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="px-1">
+                                bid interval
+                            </td>
+                            <td class="px-2">
+                                <span>$ {{ auction.intervalBid }}</span>
+                            </td>
+                        </tr>
+                    </table>
+                    <button class="border rounded-full px-2">
+                        Place Bid
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="w-1/2 px-4">
+        <h3 class="text-lg font-semibold">
+            current bids
+        </h3>
+        <ul class="m-2">
+            <li [class]="card + ' flex flex-row justify-between items-center py-2 px-3 text-xs'">
+                <div>
+                    <span>$ 999.99</span>
+                </div>
+                <div>
+                    59 minutes ago
+                </div>
+            </li>
+        </ul>
+    </div>
+</section>
