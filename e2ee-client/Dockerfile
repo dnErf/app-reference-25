@@ -1,4 +1,4 @@
-FROM node:lts AS runtime
+FROM node:lts-slim AS runtime
 WORKDIR /app
 
 COPY ["/e2ee-client", "."]
