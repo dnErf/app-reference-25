@@ -1,0 +1,8 @@
+services:
+  client:
+    image: client
+    ports:
+      - 11011:11011
+    build:
+      context: .
+      dockerfile: e2ee-client/Dockerfile
