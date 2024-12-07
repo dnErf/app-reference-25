@@ -1,7 +1,7 @@
-FROM node:lts as runtime
+FROM node:lts AS runtime
 WORKDIR /app
 
-COPY . .
+COPY ["/e2ee-client", "."]
 
 RUN npm install
 RUN npm run build
