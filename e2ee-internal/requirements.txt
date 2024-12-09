@@ -1,0 +1,4 @@
+requests
+SQLAlchemy
+SQLAlchemy-Utils
+pyodc

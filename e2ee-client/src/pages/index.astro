@@ -4,8 +4,20 @@ import Layout from '../layouts/Layout.astro';
 
 // Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
 // Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+let r = await fetch('http://localhost:5160/weatherforecast')
+	.then((r) => r.json())
+	.then((r) => r)
 ---
 
 <Layout>
 	<Welcome />
+	{
+		r.map((item) => (
+			<p>
+				<code>
+					{JSON.stringify(item)}
+				</code>
+			</p>
+		))
+	}
 </Layout>

@@ -1,0 +1,6 @@
+@E2ee_HostAddress = http://localhost:5160
+
+GET {{E2ee_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

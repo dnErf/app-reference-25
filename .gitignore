@@ -15,6 +15,7 @@ obj/
 .wrangler/
 
 # dependencies
+.venv/
 node_modules/
 
 # logs

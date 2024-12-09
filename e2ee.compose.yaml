@@ -6,3 +6,15 @@ services:
     build:
       context: .
       dockerfile: e2ee-client/Dockerfile
+  server:
+    image: server
+    ports:
+      - 11012:8080
+    build:
+      context: .
+      dockerfile: e2ee-server/E2ee/Dockerfile
+  internal:
+    image: internal
+    build:
+      context: .
+      dockerfile: e2ee-internal/Dockerfile
