@@ -6,6 +6,8 @@ services:
     build:
       context: .
       dockerfile: e2ee-client/Dockerfile
+    environment:
+      - E2EE_SERVER=${E2EE_SERVER}
   server:
     image: server
     ports:
@@ -15,6 +17,8 @@ services:
       dockerfile: e2ee-server/E2ee/Dockerfile
   internal:
     image: internal
+    depends_on: 
+      - server
     build:
       context: .
       dockerfile: e2ee-internal/Dockerfile
