@@ -18,7 +18,7 @@ export default defineConfig({
   }),
   vite: {
     define: {
-      __APP_ENV__: JSON.stringify(env)
+      __APP_ENV__: JSON.stringify(env.APP_ENV)
     }
   }
 });
