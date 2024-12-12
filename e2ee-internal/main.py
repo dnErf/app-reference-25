@@ -1,5 +1,6 @@
+import os
 import requests
 
-response = requests.get('http://localhost:5160/weatherforecast').json()
+response = requests.get(f'{os.environ["E2EE_SERVER"]}/weatherforecast').json()
 
 print(response)
