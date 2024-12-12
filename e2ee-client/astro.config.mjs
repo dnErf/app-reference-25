@@ -8,6 +8,9 @@ import node from '@astrojs/node';
 import { loadEnv } from 'vite'
 
 const env = loadEnv(process.env.NODE_ENV, process.cwd(), '')
+console.log('===')
+console.log('-', env)
+console.log('===')
 
 // https://astro.build/config
 export default defineConfig({
@@ -18,7 +21,7 @@ export default defineConfig({
   }),
   vite: {
     define: {
-      __APP_ENV__: JSON.stringify(env.APP_ENV)
+      __APP_ENV__: JSON.stringify(env)
     }
   }
 });
