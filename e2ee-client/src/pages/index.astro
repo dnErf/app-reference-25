@@ -5,14 +5,16 @@ import Layout from '../layouts/Layout.astro';
 // Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
 // Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
 console.log("===")
-console.log(`e2ee --- ${import.meta.env.E2EE_SERVER}`)
+// console.log(`e2ee --- ${import.meta.env.E2EE_SERVER}`)
+console.log(`e2ee --- ${process.env.E2EE_SERVER}`)
 //console.dir(import.meta.env,Infinity)
 console.log("===")
 
 let o = import.meta.env.E2EE_SERVER !== undefined && import.meta.env.E2EE_SERVER !== null || import.meta.env.E2EE_SERVER !== "";
+let e = o ?? process.env.E2EE_SERVER;
 let r;
 if (!o) {
-	r = await fetch(`${import.meta.env.E2EE_SERVER}/weatherforecast`)
+	r = await fetch(`${e}/weatherforecast`)
 	.then((r) => r.json())
 	.then((r) => r)
 }
