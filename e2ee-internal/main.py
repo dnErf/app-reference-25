@@ -1,6 +1,11 @@
 import os
 import requests
 
-response = requests.get(f'{os.environ["E2EE_SERVER"]}/weatherforecast').json()
+es = os.environ["E2EE_SERVER"]
+print('===')
+print(es)
+print('===')
+
+response = requests.get(f'{es}/weatherforecast').json()
 
 print(response)
