@@ -2,3 +2,5 @@ requests
 SQLAlchemy
 SQLAlchemy-Utils
 pyodc
+quixstreams
+confluent-kafka

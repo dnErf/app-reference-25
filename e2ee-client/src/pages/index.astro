@@ -1,38 +1,27 @@
 ---
-// import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
+import Layout from '../layouts/Layout.astro'
+// import { productAction } from '../lib/directus.ts'
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
-console.log("===")
-// console.log(`e2ee --- ${import.meta.env.E2EE_SERVER}`)
-console.log(`e2ee --- ${process.env.E2EE_SERVER}`)
-//console.dir(import.meta.env,Infinity)
-console.log("===")
-
-let o = import.meta.env.E2EE_SERVER !== undefined && import.meta.env.E2EE_SERVER !== null || import.meta.env.E2EE_SERVER !== "";
-let e = o ?? process.env.E2EE_SERVER;
-let r;
-if (!o) {
-	r = await fetch(`${e}/weatherforecast`)
-	.then((r) => r.json())
-	.then((r) => r)
-}
+// let jsn = await productAction.getProductData()
+// console.log(jsn)
 ---
 
-<Layout>
-<div>
-	<p>hello astro</p>
-	{
-		!o && (
-			r.map((item) => (
-				<p>
-					<code>
-						{JSON.stringify(item)}
-					</code>
-				</p>
+<Layout className="md:p-2">
+<div class="flex md:flex-row flex-col-reverse gap-4 border">
+	<div class="block">
+		{
+			Array(10).fill(0).map((_, idx) => (
+				
+			<a href="#" class="flex flex-col items-center bg-white border border-gray-200 rounded-lg shadow md:flex-row md:max-w-4xl hover:bg-gray-100 dark:border-gray-700 dark:bg-gray-800 dark:hover:bg-gray-700">
+				<img class="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-s-lg" src="https://via.placeholder.com/150?text=Product+Image+1" alt="" />
+				<div class="flex flex-col justify-between p-4 leading-normal">
+					<h5 class="mb-2 text-xl font-bold tracking-tight text-gray-900 dark:text-white">Noteworthy technology acquisitions 2021</h5>
+					<p class="mb-3 font-normal text-sm text-gray-700 dark:text-gray-400">Here are the biggest enterprise technology acquisitions of 2021 so far, in reverse chronological order.</p>
+				</div>
+			</a>
+		
 			))
-		)
-	}
+		}
+	</div>
 </div>
 </Layout>
