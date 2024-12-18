@@ -1,3 +1,4 @@
+redis
 requests
 SQLAlchemy
 SQLAlchemy-Utils
