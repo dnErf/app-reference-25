@@ -1,9 +1,25 @@
 ---
 import Layout from '../layouts/Layout.astro'
+import { createClient } from 'redis'
 // import { productAction } from '../lib/directus.ts'
 
 // let jsn = await productAction.getProductData()
 // console.log(jsn)
+
+const redis = await createClient({ url: 'redis://172.30.55.194:6379' })
+const zchn_test = 'zchn_test'
+await redis.connect();
+
+const client = redis.duplicate();
+await client.connect();
+
+for (let i = 0; i < 10; i++) {
+	await redis.publish(zchn_test, `test ${i}`)
+}
+
+await client.subscribe(zchn_test, (msg, chn) => {
+	console.log(`${msg} @ ${chn}`)
+}, false)
 ---
 
 <Layout className="md:p-2">
