@@ -5,6 +5,8 @@ import tailwind from '@astrojs/tailwind';
 
 import node from '@astrojs/node';
 
+import react from '@astrojs/react';
+
 // ! can't access env on coolify without using process.env 
 // ! need to get back for this
 // import { loadEnv } from 'vite'
@@ -12,7 +14,7 @@ import node from '@astrojs/node';
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [tailwind()],
+  integrations: [tailwind(), react()],
   output: 'server',
   adapter: node({
     mode: 'standalone'

@@ -1,6 +1,25 @@
 ---
 import Layout from '../layouts/Layout.astro'
+import { TestContainer } from '../components/test-item.tsx'
+
+const products = [
+    {
+        id: 1,
+        title: 'afsdf',
+        price: 1
+    },
+    {
+        id: 2,
+        title: 'fdsas',
+        price: 1
+    }
+]
 ---
 
 <Layout className="md:p-2">
+    hello astro
+    <br />
+    <div>
+        <TestContainer items={products} client:only="react" />
+    </div>
 </Layout>
