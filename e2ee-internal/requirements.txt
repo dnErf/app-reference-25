@@ -5,3 +5,4 @@ SQLAlchemy-Utils
 pyodc
 quixstreams
 confluent-kafka
+fastapi[standard]
