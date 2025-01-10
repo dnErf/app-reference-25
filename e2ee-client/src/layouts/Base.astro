@@ -1,0 +1,61 @@
+---
+import '../styles.css'
+
+interface Props {
+	className?: string;
+	metaPageTitle?: string;
+	metaPageDescription?: string;
+}
+
+let props = Astro.props
+
+if (Astro.cookies.get("token")?.value) {
+}
+---
+
+<script>
+import { initFlowbite } from 'flowbite'
+window.onload = function() {
+	initFlowbite()
+
+	// console.log(document.cookie)
+	// console.log(someCookie("token"))
+}
+
+function someCookie(name) {
+	let c = `; ${document.cookie}`
+	let v =  c.split(`; ${name}=`)
+	return v.length >= 2
+		? v.pop().split(";").shift()
+		: ""
+}
+</script>
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="generator" content={Astro.generator} />
+		<meta name="description" content="hello" />
+		<script src="../../node_modules/flowbite/dist/flowbite.min.js"></script>
+		<title>Astro Basics</title>
+	</head>
+	<body>
+		<main class={props.className}>
+			<slot />
+		</main>
+		<div></div>
+	</body>
+</html>
+
+<style>
+	html,
+	body {
+		margin: 0;
+		width: 100%;
+		height: 100%;
+		scrollbar-gutter: stable;
+	}
+</style>

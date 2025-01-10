@@ -1,5 +1,5 @@
 ---
-import Layout from '../layouts/Layout.astro'
+import MainLayout from '../layouts/MainLayout.astro'
 import { TestContainer } from '../components/test-item.tsx'
 
 const products = [
@@ -16,10 +16,10 @@ const products = [
 ]
 ---
 
-<Layout className="md:p-2">
+<MainLayout className="md:p-2">
     hello astro
     <br />
     <div>
         <TestContainer items={products} client:only="react" />
     </div>
-</Layout>
+</MainLayout>
