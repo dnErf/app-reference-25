@@ -4,6 +4,8 @@ from fastapi import FastAPI
 import asyncio
 import redis.asyncio as redis
 
+from api.auth.route import auth_route
+
 red = redis.from_url('redis://172.30.55.194:6379', protocol=3)
 stream_name = "streaming"
 async def consume_async():
@@ -22,12 +24,13 @@ async def consume_async():
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    loop = asyncio.get_event_loop()
-    loop.create_task(consume_async())
+    # loop = asyncio.get_event_loop()
+    # loop.create_task(consume_async())
     yield
     
 
 app = FastAPI(lifespan=lifespan)
+app.include_router(auth_route)
 
 if __name__ == "__main__":
     import uvicorn

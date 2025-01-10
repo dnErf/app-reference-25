@@ -1,8 +1,12 @@
-import { defineAction } from "astro:actions"
 import { z } from "astro:schema"
+import { defineAction } from "astro:actions"
 import { createClient } from 'redis'
 
+import { authActions } from "./auth.ts"
+
 export const server = {
+    ...authActions,
+
     testAction: defineAction({
         accept: 'json',
         input: z.object({

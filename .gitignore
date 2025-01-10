@@ -13,6 +13,7 @@ obj/
 .angular/
 .astro/
 .wrangler/
+__pycache__/
 
 # dependencies
 .venv/

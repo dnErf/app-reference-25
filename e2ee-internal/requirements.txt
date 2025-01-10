@@ -1,8 +1,10 @@
 redis
-requests
+fastapi[standard]
+sqlmodel
 SQLAlchemy
 SQLAlchemy-Utils
+pydantic[email]
+pydantic-settings
+passlib[bcrypt]
+PyJWT
 pyodc
-quixstreams
-confluent-kafka
-fastapi[standard]
