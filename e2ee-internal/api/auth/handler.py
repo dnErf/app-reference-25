@@ -5,20 +5,24 @@ from fastapi import Depends
 from fastapi.security import OAuth2PasswordBearer
 from passlib.context import CryptContext
 
+from lib.data_context import dal_session, find_user
+
 class AuthHandler:
     security = OAuth2PasswordBearer(tokenUrl="/api/signin")
     pwd_ctx = CryptContext(schemes=["bcrypt"])
     hmac_sha256 = "HS256"
     secret = ""
 
-    def __init__(self, secret: str):
-        self.secret = secret
-        pass
-
-    def hash_password(self, password: str) -> str:
-        return self.pwd_ctx.hash(password)
+    def __init__(_, secret: str):
+        _.secret = secret
     
-    def encode_token(self, user):
+    def verify_password(_, plain, hashed):
+        return _.pwd_ctx.verify(plain, hashed)
+
+    def hash_password(_, password: str) -> str:
+        return _.pwd_ctx.hash(password)
+    
+    def encode_token(_, user):
         iat = datetime.now(timezone.utc)
         expire_at = iat + timedelta(hours=9)
         token = {
@@ -27,11 +31,16 @@ class AuthHandler:
             "sub": user            
         }
         payload = {
-            "token": jwt.encode(token, self.secret, algorithm=self.hmac_sha256),
+            "token": jwt.encode(token, _.secret, algorithm=_.hmac_sha256),
             "expire_at": str(expire_at),
         }
         return payload
 
-    def decode_token(self, token: str = Depends(security)):
-        decoded = jwt.decode(token, self.secret, algorithms=self.hmac_sha256)
+    def decode_token(_, token: str = Depends(security)):
+        decoded = jwt.decode(token, _.secret, algorithms=_.hmac_sha256)
         return decoded
+    
+    def get_auth_user(_, token, dal):
+        print(token)
+        user = find_user(dal, token["sub"])
+        return user

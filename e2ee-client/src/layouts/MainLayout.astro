@@ -4,22 +4,37 @@ import { INTERNAL_SERVER } from "astro:env/server"
 
 import { _someCookie } from "@/lib/utils.ts"
 
-if (!Astro.request.headers.get("cookie")) {
-    return Astro.redirect("/auth/signin")
+type AuthUser = {
+    id?: string;
+    email?: string;
+    user?: string;
+    hashed?: string;
+    img_thumbnail?: string;
+    dated_at?: string;
 }
 
 let token = _someCookie(Astro.request.headers.get("cookie"), "token")
-, user = {};
+, resultData: AuthUser = {};
 
-let result = await fetch(`${INTERNAL_SERVER}/api/auth/user`, {
+if (token) {
+    let result = await fetch(`${INTERNAL_SERVER}/api/auth/user`, {
         method: "GET",
         headers: {
             "Authorization": `Bearer ${token}`
         }
     })
 
-let userData = await result.json()
+    resultData = await result.json()
+    console.log(resultData)
+}
+
 ---
+<script>
+import { navigate } from "astro:transitions/client"
+if (!document.cookie) {
+    navigate("/auth/signin")
+}
+</script>
 
 <Base className="min-h-full min-w-full">
     <section class="">
@@ -31,8 +46,13 @@ let userData = await result.json()
                 {
                     token?.length
                     ? (
-                        <div>
-                            user
+                        <div class="flex gap-4">
+                            <div>
+                                { resultData.user }
+                            </div>
+                            <div>
+                                <img src={resultData.img_thumbnail} height="32px" width="32px" />
+                            </div>
                         </div>
                     )
                     : (

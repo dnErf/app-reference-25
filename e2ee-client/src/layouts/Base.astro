@@ -1,5 +1,6 @@
 ---
 import '../styles.css'
+import { ClientRouter } from 'astro:transitions';
 
 interface Props {
 	className?: string;
@@ -27,6 +28,7 @@ window.onload = function() {
 		<meta name="description" content="hello" />
 		<script src="../../node_modules/flowbite/dist/flowbite.min.js"></script>
 		<title>Astro Basics</title>
+		<ClientRouter />
 	</head>
 	<body>
 		<main class={props.className}>

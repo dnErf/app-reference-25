@@ -3,8 +3,13 @@ import { actions } from "astro:actions"
 import AuthLayout from "@/layouts/AuthLayout.astro"
 
 if (Astro.request.headers.get("cookie")) {
-    return Astro.redirect("/auth/signin")
+    return Astro.redirect("/")
 }
+
+// let authData = Astro.getActionResult(actions.signIn)
+// if (authData && !authData.error) {
+//     return Astro.redirect("/")
+// }
 ---
 
 <AuthLayout>
