@@ -1,7 +1,57 @@
 ---
 import Base from "./Base.astro";
+import { INTERNAL_SERVER } from "astro:env/server"
+
+import { _someCookie } from "@/lib/utils.ts"
+
+if (!Astro.request.headers.get("cookie")) {
+    return Astro.redirect("/auth/signin")
+}
+
+let token = _someCookie(Astro.request.headers.get("cookie"), "token")
+, user = {};
+
+let result = await fetch(`${INTERNAL_SERVER}/api/auth/user`, {
+        method: "GET",
+        headers: {
+            "Authorization": `Bearer ${token}`
+        }
+    })
+
+let userData = await result.json()
 ---
 
-<Base>
-    <slot />
+<Base className="min-h-full min-w-full">
+    <section class="">
+        <div class="border-b min-h-16">
+            <nav class="flex justify-between items-center h-16 p-4">
+                <div>
+                    e2ee
+                </div>
+                {
+                    token?.length
+                    ? (
+                        <div>
+                            user
+                        </div>
+                    )
+                    : (
+                        <div>
+                            <a href="/auth/signin">
+                                sign in
+                            </a>                            
+                        </div>
+                    )
+                }
+            </nav>
+        </div>
+    </section>
+    <section>
+        <slot />
+    </section>
+    <section>
+        <footer>
+            footer
+        </footer>
+    </section>
 </Base>

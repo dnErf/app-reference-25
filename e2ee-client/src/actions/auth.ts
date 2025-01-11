@@ -9,10 +9,7 @@ export const authActions = {
             email: z.string(),
             password: z.string(),
         }),
-        async handler(input, _) {
-            // console.log(input)
-            console.log("===")
-            
+        async handler(input, context) {
             let response = await fetch(`${INTERNAL_SERVER}/api/auth/signin`, {
                 method: "POST",
                 headers: {
@@ -24,9 +21,12 @@ export const authActions = {
                 })
             }) 
 
-            let data = await response.json()
+            let authData = await response.json()
+            
+            context.cookies.set("token", authData.token, { expires: new Date(Date.parse(authData.expire_at)), path: "/" })
+
             return {
-                token: data.token
+                ...authData
             }
         },
     })

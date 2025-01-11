@@ -8,26 +8,12 @@ interface Props {
 }
 
 let props = Astro.props
-
-if (Astro.cookies.get("token")?.value) {
-}
 ---
 
 <script>
 import { initFlowbite } from 'flowbite'
 window.onload = function() {
 	initFlowbite()
-
-	// console.log(document.cookie)
-	// console.log(someCookie("token"))
-}
-
-function someCookie(name) {
-	let c = `; ${document.cookie}`
-	let v =  c.split(`; ${name}=`)
-	return v.length >= 2
-		? v.pop().split(";").shift()
-		: ""
 }
 </script>
 
@@ -54,8 +40,9 @@ function someCookie(name) {
 	html,
 	body {
 		margin: 0;
-		width: 100%;
+		width: 96;
 		height: 100%;
 		scrollbar-gutter: stable;
+		margin-left: .5rem;
 	}
 </style>

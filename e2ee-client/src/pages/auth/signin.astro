@@ -2,6 +2,9 @@
 import { actions } from "astro:actions"
 import AuthLayout from "@/layouts/AuthLayout.astro"
 
+if (Astro.request.headers.get("cookie")) {
+    return Astro.redirect("/auth/signin")
+}
 ---
 
 <AuthLayout>
@@ -34,4 +37,3 @@ import AuthLayout from "@/layouts/AuthLayout.astro"
         </div>
     </div>
 </AuthLayout>
-
