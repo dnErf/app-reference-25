@@ -35,4 +35,5 @@ app.include_router(auth_route)
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app)
-    
+    # uvicorn main:app --host 0.0.0.0 --port 8080 --workers 4
+    # fastapi run workers 4 main.py

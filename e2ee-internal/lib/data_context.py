@@ -1,3 +1,4 @@
+from fastapi import Depends
 from sqlmodel import SQLModel, Session, create_engine, select
 
 from models.auth import AuthUser
@@ -11,21 +12,30 @@ def dal_session():
     with Session(engine) as dal:
         yield dal
 
-def commit(dal: Session):
-    try:
-        dal.commit()
-        return (None, True)
-    except Exception as exc:
-        print(exc)
-        return (exc, False)
+class Dal:
+    dal: Session
+    
+    def __init__(_, session = Depends(dal_session)):
+        _.dal = session
 
-def find_user(dal: Session, user_id: str):
-    q = select(AuthUser).where(AuthUser.id == user_id)
-    return dal.exec(q).first()
+    def commit(_):
+        try:
+            _.commit()
+            return None
+        except Exception as exc:
+            print(exc)
+            return exc
 
-def find_user_by_email(dal: Session, user_email: str):
-    q = select(AuthUser).where(AuthUser.email == user_email)
-    return dal.exec(q).first()
+    def find_user_by_id(_, user_id):
+        q = select(AuthUser).where(AuthUser.id == user_id)
+        return _.dal.exec(q).first() 
 
-
-# TODO DAL class
+    def find_user_by_email(_, user_email):
+        q = select(AuthUser).where(AuthUser.email == user_email)
+        return _.dal.exec(q).first()
+    
+    def add_user(_, user: AuthUser):
+        _.add(user)
+        err = _.commit()
+        _.refresh(user)
+        return (err, user)

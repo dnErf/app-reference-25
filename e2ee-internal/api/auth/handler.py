@@ -5,8 +5,6 @@ from fastapi import Depends
 from fastapi.security import OAuth2PasswordBearer
 from passlib.context import CryptContext
 
-from lib.data_context import dal_session, find_user
-
 class AuthHandler:
     security = OAuth2PasswordBearer(tokenUrl="/api/signin")
     pwd_ctx = CryptContext(schemes=["bcrypt"])
@@ -38,9 +36,4 @@ class AuthHandler:
 
     def decode_token(_, token: str = Depends(security)):
         decoded = jwt.decode(token, _.secret, algorithms=_.hmac_sha256)
-        return decoded
-    
-    def get_auth_user(_, token, dal):
-        print(token)
-        user = find_user(dal, token["sub"])
-        return user
+        return decoded 
