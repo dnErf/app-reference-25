@@ -31,7 +31,9 @@ export default defineConfig({
     schema: {
       E2EE_SERVER: envField.string({ context: 'server', access: 'public', optional: true }),
       INTERNAL_SERVER: envField.string({ context: "server", access: "public", optional: false}),
+      DIRECTUS_URL: envField.string({ context: "server", access: "public", optional: false }),
       DIRECTUS_BEARER: envField.string({ context: 'server', access: 'secret' }),
+      DIRECTUS_FILE_FOLDER: envField.string({ context: "server", access: "public", optional: false }),
     }
   }
 });
