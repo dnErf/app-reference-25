@@ -7,6 +7,8 @@ import node from '@astrojs/node';
 
 import react from '@astrojs/react';
 
+import db from '@astrojs/db';
+
 // ! can't access env on coolify without using process.env 
 // ! need to get back for this
 // import { loadEnv } from 'vite'
@@ -14,7 +16,7 @@ import react from '@astrojs/react';
 
 // https://astro.build/config
 export default defineConfig({
-  integrations: [tailwind(), react()],
+  integrations: [tailwind(), react(), db()],
   output: 'server',
   adapter: node({
     mode: 'standalone'
@@ -31,9 +33,11 @@ export default defineConfig({
     schema: {
       E2EE_SERVER: envField.string({ context: 'server', access: 'public', optional: true }),
       INTERNAL_SERVER: envField.string({ context: "server", access: "public", optional: false}),
-      DIRECTUS_URL: envField.string({ context: "server", access: "public", optional: false }),
+      DIRECTUS_URL: envField.string({ context: "client", access: "public", optional: false }),
       DIRECTUS_BEARER: envField.string({ context: 'server', access: 'secret' }),
       DIRECTUS_FILE_FOLDER: envField.string({ context: "server", access: "public", optional: false }),
+      ASTRO_DB_REMOTE_URL: envField.string({ context: "server", access: "public", optional: false }),
+      ASTRO_DB_APP_TOKEN: envField.string({ context: "server", access: "secret" })
     }
   }
 });

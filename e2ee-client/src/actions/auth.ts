@@ -1,6 +1,7 @@
 import { z } from "astro:schema"
 import { defineAction } from "astro:actions"
-import { INTERNAL_SERVER, DIRECTUS_URL, DIRECTUS_BEARER, DIRECTUS_FILE_FOLDER } from "astro:env/server"
+import { DIRECTUS_URL } from "astro:env/client"
+import { INTERNAL_SERVER, DIRECTUS_BEARER, DIRECTUS_FILE_FOLDER } from "astro:env/server"
 
 export const authActions = {
     signIn: defineAction({

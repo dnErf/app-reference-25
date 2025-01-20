@@ -1,5 +1,5 @@
 {
-  "name": "",
+  "name": "e2ee",
   "type": "module",
   "version": "0.0.1",
   "scripts": {
@@ -9,14 +9,18 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/db": "^0.14.5",
     "@astrojs/node": "^9.0.0",
     "@astrojs/react": "^4.1.2",
     "@astrojs/tailwind": "^5.1.4",
     "@directus/sdk": "^18.0.1",
+    "@nanostores/react": "^0.8.4",
     "@types/react": "^19.0.2",
     "@types/react-dom": "^19.0.2",
     "astro": "^5.1.1",
     "flowbite": "^2.5.2",
+    "nanoid": "^5.0.9",
+    "nanostores": "^0.11.3",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "redis": "^4.7.0",

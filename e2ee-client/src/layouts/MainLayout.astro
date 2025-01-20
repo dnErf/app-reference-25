@@ -3,6 +3,7 @@ import Base from "./Base.astro";
 import { INTERNAL_SERVER } from "astro:env/server"
 
 import { _someCookie } from "@/lib/utils.ts"
+import { NavbarUser } from "@/components/navbar.tsx"
 
 type AuthUser = {
     id?: string;
@@ -38,7 +39,7 @@ if (!document.cookie) {
 
 <Base className="min-h-full min-w-full">
     <section class="">
-        <div class="border-b min-h-16">
+        <div class="border-b min-h-16 mb-8">
             <nav class="flex justify-between items-center h-16 p-4">
                 <div>
                     e2ee
@@ -46,14 +47,7 @@ if (!document.cookie) {
                 {
                     token?.length
                     ? (
-                        <div class="flex gap-4">
-                            <div>
-                                { resultData.user }
-                            </div>
-                            <div>
-                                <img src={resultData.img_thumbnail} height="32px" width="32px" />
-                            </div>
-                        </div>
+                        <NavbarUser id={resultData.id} user={resultData.user} email={resultData.email} thumbnail={resultData.img_thumbnail} client:only="react" />
                     )
                     : (
                         <div>

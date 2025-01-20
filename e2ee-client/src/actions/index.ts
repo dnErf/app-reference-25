@@ -3,10 +3,12 @@ import { defineAction } from "astro:actions"
 import { createClient } from 'redis'
 
 import { authActions } from "./auth.ts"
+import { cartActions } from "./cart.ts"
 
 export const server = {
     ...authActions,
-
+    ...cartActions,
+    
     testAction: defineAction({
         accept: 'json',
         input: z.object({

@@ -1,25 +1,23 @@
 ---
-import MainLayout from '../layouts/MainLayout.astro'
-import { TestContainer } from '../components/test-item.tsx'
+import { DIRECTUS_URL } from "astro:env/client"
+import { DIRECTUS_BEARER } from "astro:env/server"
 
-const products = [
-    {
-        id: 1,
-        title: 'afsdf',
-        price: 1
-    },
-    {
-        id: 2,
-        title: 'fdsas',
-        price: 1
+import MainLayout from "../layouts/MainLayout.astro"
+import { ItemList } from "@/components/products/item-list"
+
+let q = await fetch(`${DIRECTUS_URL}/items/dmp_25f01_products`, {
+    method: "GET",
+    headers: {
+        "Authorization": `Bearer ${DIRECTUS_BEARER}`
     }
-]
+})
+
+let d = await q.json()
+// console.log(d) 
 ---
 
 <MainLayout className="md:p-2">
-    hello astro
-    <br />
-    <div>
-        <TestContainer items={products} client:only="react" />
+    <div class="">
+        <ItemList products={d.data} client:only="react" />
     </div>
 </MainLayout>
