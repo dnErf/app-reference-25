@@ -1,25 +1,36 @@
-import type { UserDataAttrs } from "@/lib/models"
+import type { CustomerCartAttrs, UserDataAttrs } from "@/lib/models"
 
 import { useEffect } from "react"
 
-import { $userData } from "@/lib/store"
+import { $customerCart, $userData } from "@/lib/store"
 
 export { NavbarUser }
 
-function NavbarUser(props: UserDataAttrs) {
-    const { id, email, user, thumbnail } = props
+type Attrs = {
+    userData: UserDataAttrs;
+    customerCart?: CustomerCartAttrs;
+}
+
+function NavbarUser(props: Attrs) {
+    const { customerCart, userData } = props
     
     useEffect(() => {
-        $userData.set({ id, email, user, thumbnail })
+        $userData.set(userData)
+        $customerCart.set(customerCart)
     }, [])
     
     return (
         <div className="flex gap-4">
             <div>
-                { user }
+                <a href="/checkout">
+                    check out
+                </a>
             </div>
             <div>
-                <img src={thumbnail} height="32px" width="32px" />
+                { userData.user }
+            </div>
+            <div>
+                <img src={userData.img_thumbnail} height="32px" width="32px" />
             </div>
         </div>
     )

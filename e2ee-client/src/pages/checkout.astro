@@ -1,0 +1,15 @@
+---
+// import { db, customer_cart, sql, eq } from "astro:db"
+import MainLayout from "@/layouts/MainLayout.astro"
+
+import { ItemList } from "@/components/checkout/item-list";
+
+// const cartItems = await db.select()
+//     .from(customer_cart)
+//     .where(eq(customer_cart.customerId, ""))
+---
+
+<MainLayout>
+    <ItemList client:only="react" />
+</MainLayout>
+

@@ -1,9 +1,9 @@
-import { defineDb, defineTable, column } from 'astro:db';
+import { defineDb, defineTable, column } from "astro:db"
 
 const customer_cart = defineTable({
   columns: {
     customerId: column.text({ primaryKey: true }),
-    products: column.json(),
+    cartItems: column.json(),
   }
 })
 

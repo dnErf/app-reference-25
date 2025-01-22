@@ -3,7 +3,7 @@ import { actions } from "astro:actions"
 import { DIRECTUS_URL } from "astro:env/client"
 import { useStore } from "@nanostores/react"
 
-import { $cartItems, $userData } from "@/lib/store"
+import { $customerCart, $userData } from "@/lib/store"
 
 export { ItemList }
 
@@ -13,15 +13,25 @@ type Attrs = {
 
 function ItemList(props:Attrs) {
     const { products } = props
-    const cartItems = useStore($cartItems)
+    const customerCart = useStore($customerCart)
     const userData = useStore($userData)
     
     async function handleAddToCart(item) {
+        console.log(item)
         let items = {
             customerId: userData.id,
-            products: [...cartItems.products, item]
+            cartItems: [...customerCart.cartItems, {
+                productId: item.product_id,
+                title: item.title,
+                description: item.description,
+                thumbnail: item.main_img,
+                price: item.price,
+                quantity: "1"
+            }]
         }
-        $cartItems.set(items)
+        console.log("===")
+        console.log(items)
+        $customerCart.set(items)
         await actions.addCartItem(items)
     }
 

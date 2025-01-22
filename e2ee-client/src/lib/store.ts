@@ -1,17 +1,22 @@
 import { atom } from "nanostores"
 
-import type { CartItemAttrs, UserDataAttrs } from "./models"
+import type { CartItemAttrs, CustomerCartAttrs, UserDataAttrs } from "./models"
 
 export const $userData = atom<UserDataAttrs>({
     id: "",
     email: "",
     user: "",
-    thumbnail: ""
+    img_thumbnail: ""
 })
 
-export const $cartItems = atom<CartItemAttrs>({
+// export const $cartItems = atom<CartItemAttrs>({
+//     customerId: "",
+//     products: []
+// })
+
+export const $customerCart = atom<CustomerCartAttrs>({
     customerId: "",
-    products: []
+    cartItems: []
 })
 
 // export const addToCart = (item: CartItem) => {

@@ -1,32 +1,28 @@
 ---
-import Base from "./Base.astro";
-import { INTERNAL_SERVER } from "astro:env/server"
+import type { AuthUserAttrs, CustomerCartAttrs } from "@/lib/models"
+import { db, customer_cart, sql, eq } from "astro:db"
+import Base from "./Base.astro"
 
-import { _someCookie } from "@/lib/utils.ts"
+import { _someCookie, _fetchAuthUser } from "@/lib/utils.ts"
 import { NavbarUser } from "@/components/navbar.tsx"
 
-type AuthUser = {
-    id?: string;
-    email?: string;
-    user?: string;
-    hashed?: string;
-    img_thumbnail?: string;
-    dated_at?: string;
-}
-
 let token = _someCookie(Astro.request.headers.get("cookie"), "token")
-, resultData: AuthUser = {};
+, userData: AuthUserAttrs = {}
+, customerCart: CustomerCartAttrs[] = [{
+    customerId: "",
+    cartItems: [],
+}]
+, products = [];
 
 if (token) {
-    let result = await fetch(`${INTERNAL_SERVER}/api/auth/user`, {
-        method: "GET",
-        headers: {
-            "Authorization": `Bearer ${token}`
-        }
-    })
-
-    resultData = await result.json()
-    console.log(resultData)
+    userData = await _fetchAuthUser(token)
+    customerCart = await db.select()
+        .from(customer_cart)
+        .where(eq(customer_cart.customerId, "a3123f80ad2c4a8bbabb65fcc850b36f"))
+        
+    // console.log(userData)
+    // console.log(customerCart)
+    // products = JSON.parse(cartItems[0]?.products ?? JSON.stringify([]))
 }
 
 ---
@@ -41,16 +37,25 @@ if (!document.cookie) {
     <section class="">
         <div class="border-b min-h-16 mb-8">
             <nav class="flex justify-between items-center h-16 p-4">
-                <div>
+                <a href="/">
                     e2ee
-                </div>
+                </a>
                 {
                     token?.length
                     ? (
-                        <NavbarUser id={resultData.id} user={resultData.user} email={resultData.email} thumbnail={resultData.img_thumbnail} client:only="react" />
+                        <NavbarUser transition:persist client:only="react" 
+                            customerCart={{ 
+                                customerId: customerCart[0]?.customerId ?? "",
+                                cartItems: products
+                            }}
+                            userData={userData} 
+                        />
                     )
                     : (
                         <div>
+                            <a href="/checkout">
+                                CheckOut
+                            </a>
                             <a href="/auth/signin">
                                 sign in
                             </a>                            
