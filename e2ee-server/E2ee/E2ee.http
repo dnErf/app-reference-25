@@ -4,3 +4,29 @@ GET {{E2ee_HostAddress}}/weatherforecast/
 Accept: application/json
 
 ###
+
+POST {{E2ee_HostAddress}}/api/checkout
+Accept: application/json
+Content-Type: application/json
+
+{
+    "orderId": "asdf",
+    "customerId": "fdsa",
+    "paymentId": "zxcv",
+    "salesItems": [
+        {
+            "orderId": "asdf",
+            "productId": "uiop",
+            "price": 1,
+            "quantity": 1
+        },
+        {
+            "orderId": "asdf",
+            "productId": "poiu",
+            "price": 1,
+            "quantity": 1
+        }
+    ],
+    "totalAmount": 0.01,
+    "status": "committed"
+}
