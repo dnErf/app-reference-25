@@ -5,7 +5,7 @@
 namespace E2ee.Migrations
 {
     /// <inheritdoc />
-    public partial class inittables : Migration
+    public partial class xxd04_init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -29,26 +29,27 @@ namespace E2ee.Migrations
                 name: "SalesItems",
                 columns: table => new
                 {
-                    ProductId = table.Column<string>(type: "nvarchar(450)", nullable: false),
-                    OrderId = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    OrderId = table.Column<string>(type: "nvarchar(450)", nullable: false),
+                    ProductId = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Price = table.Column<double>(type: "float", nullable: false),
-                    Quantity = table.Column<int>(type: "int", nullable: false),
-                    SalesOrderOrderId = table.Column<string>(type: "nvarchar(450)", nullable: true)
+                    Quantity = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_SalesItems", x => x.ProductId);
+                    table.PrimaryKey("PK_SalesItems", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_SalesItems_SalesOrders_SalesOrderOrderId",
-                        column: x => x.SalesOrderOrderId,
+                        name: "FK_SalesItems_SalesOrders_OrderId",
+                        column: x => x.OrderId,
                         principalTable: "SalesOrders",
-                        principalColumn: "OrderId");
+                        principalColumn: "OrderId",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_SalesItems_SalesOrderOrderId",
+                name: "IX_SalesItems_OrderId",
                 table: "SalesItems",
-                column: "SalesOrderOrderId");
+                column: "OrderId");
         }
 
         /// <inheritdoc />

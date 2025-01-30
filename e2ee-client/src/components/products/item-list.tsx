@@ -17,7 +17,6 @@ function ItemList(props:Attrs) {
     const userData = useStore($userData)
     
     async function handleAddToCart(item) {
-        console.log(item)
         let items = {
             customerId: userData.id,
             cartItems: [...customerCart.cartItems, {
@@ -29,8 +28,7 @@ function ItemList(props:Attrs) {
                 quantity: "1"
             }]
         }
-        console.log("===")
-        console.log(items)
+        
         $customerCart.set(items)
         await actions.addCartItem(items)
     }

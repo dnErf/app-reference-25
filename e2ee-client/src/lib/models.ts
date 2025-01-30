@@ -55,6 +55,7 @@ export const CustomerCart = z.object({
 export type CustomerCartAttrs = z.infer<typeof CustomerCart>
 
 export const SalesItem = z.object({
+    id: z.string(),
     orderId: z.string(),
     productId: z.string(),
     price: z.number(),

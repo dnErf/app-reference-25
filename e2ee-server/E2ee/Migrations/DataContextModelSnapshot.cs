@@ -23,25 +23,26 @@ namespace E2ee.Migrations
 
             modelBuilder.Entity("E2ee.Models.SalesItem", b =>
                 {
-                    b.Property<string>("ProductId")
+                    b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<string>("OrderId")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<double>("Price")
                         .HasColumnType("float");
 
+                    b.Property<string>("ProductId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.Property<string>("SalesOrderOrderId")
-                        .HasColumnType("nvarchar(450)");
+                    b.HasKey("Id");
 
-                    b.HasKey("ProductId");
-
-                    b.HasIndex("SalesOrderOrderId");
+                    b.HasIndex("OrderId");
 
                     b.ToTable("SalesItems");
                 });
@@ -74,13 +75,15 @@ namespace E2ee.Migrations
             modelBuilder.Entity("E2ee.Models.SalesItem", b =>
                 {
                     b.HasOne("E2ee.Models.SalesOrder", null)
-                        .WithMany("SalesItems")
-                        .HasForeignKey("SalesOrderOrderId");
+                        .WithMany("Items")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("E2ee.Models.SalesOrder", b =>
                 {
-                    b.Navigation("SalesItems");
+                    b.Navigation("Items");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { useStore } from "@nanostores/react"
 import { actions } from "astro:actions"
+import { nanoid } from "nanoid"
 
 import { $customerCart, $userData } from "@/lib/store"
 
@@ -52,9 +53,11 @@ function ItemList() {
                 <button className="border px-2 py-1"
                     onClick={async (ev) => {
                         ev.preventDefault()
+                        const orderId = nanoid(8)
                         const salesItems = cartItems.map((item) => ({
-                            orderId: "asdfsd",
-                            productId: item.product_id,
+                            id: nanoid(8),
+                            orderId: orderId,
+                            productId: item.productId,
                             price: parseFloat(item.price),
                             quantity: parseInt(item.quantity),
                         }))
@@ -62,7 +65,7 @@ function ItemList() {
                         // * discount somewhere here
 
                         const salesOrder = {
-                            orderId: "",
+                            orderId: orderId,
                             customerId: customerId,
                             paymentId: "",
                             items: salesItems,
@@ -71,7 +74,7 @@ function ItemList() {
                         }
 
                         // checkout
-                        let resultData = await actions.checkOutCart(salesOrder)
+                        const resultData = await actions.checkOutCart(salesOrder)
                         console.log(resultData)
                     }}
                 >
