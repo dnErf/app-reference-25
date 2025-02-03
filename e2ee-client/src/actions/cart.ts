@@ -1,6 +1,7 @@
 import { db, customer_cart, sql } from "astro:db"
-import { defineAction } from "astro:actions"
-import { E2EE_SERVER } from "astro:env/server"
+import { defineAction, ActionError } from "astro:actions"
+import { E2EE_SERVER, STRIPE_SECRET_KEY } from "astro:env/server"
+import Stripe from "stripe"
 
 import { CustomerCart, SalesOrder } from "@/lib/models"
 
@@ -11,7 +12,7 @@ export const cartActions = {
         handler: async (input, ctx) => {
             const cartItemsByCustomer = await db
                 .insert(customer_cart)
-                .values({ customerId: input.customerId, cartItems: input.cartItems })
+                .values({ customerId: input.customerId, customerEmail: input.customerEmail, cartItems: input.cartItems })
                 .onConflictDoUpdate({ 
                     target: customer_cart.customerId, 
                     targetWhere: sql`customerId = ${input.customerId}`,
@@ -30,7 +31,41 @@ export const cartActions = {
         accept: "json",
         input: SalesOrder,
         handler: async (input, ctx) => {
-            console.log(input)
+            let forSaleItems = input.items.map((item, idx) => {
+                return {
+                    price_data: {
+                        currency: "usd",
+                        product_data: {
+                            name: item.title,
+                            metadata: {
+                                order: item.orderId,
+                                product: item.productId
+                            }
+                        },
+                        unit_amount: item.price * 100,  
+                    },
+                    quantity: item.quantity
+                }
+            })
+
+            const stripe = new Stripe(STRIPE_SECRET_KEY)
+            const stripeSession = await stripe.checkout.sessions.create({
+                mode: "payment",
+                success_url: "http://localhost:4321/checkout/complete?session_id={CHECKOUT_SESSION_ID}",
+                line_items: forSaleItems,
+                customer_email: input.customerEmail,
+                metadata: {
+                    oid: input.orderId
+                }
+            })
+
+            if (!stripeSession) {
+                throw new ActionError({
+                    code: "BAD_REQUEST",
+                    message: ""
+                })
+            }
+
             const responseData = await fetch(`${E2EE_SERVER}/api/checkout`, {
                 method: "POST",
                 headers: {
@@ -38,9 +73,12 @@ export const cartActions = {
                 },
                 body: JSON.stringify(input)
             })
-            console.log(responseData)
+
+            // TODO if not 200 | try and catch
+            
             return {
-                success: true
+                success: true,
+                stripeSessionUrl: stripeSession.url
             }
         }
     }),

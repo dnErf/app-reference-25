@@ -31,13 +31,14 @@ export default defineConfig({
   },
   env: {
     schema: {
-      E2EE_SERVER: envField.string({ context: 'server', access: 'public', optional: true }),
-      INTERNAL_SERVER: envField.string({ context: "server", access: "public", optional: false}),
+      E2EE_SERVER: envField.string({ context: "server", access: "public", optional: true }),
+      INTERNAL_SERVER: envField.string({ context: "server", access: "public", optional: false }),
       DIRECTUS_URL: envField.string({ context: "client", access: "public", optional: false }),
-      DIRECTUS_BEARER: envField.string({ context: 'server', access: 'secret' }),
+      DIRECTUS_BEARER: envField.string({ context: "server", access: "secret", optional: false }),
       DIRECTUS_FILE_FOLDER: envField.string({ context: "server", access: "public", optional: false }),
       ASTRO_DB_REMOTE_URL: envField.string({ context: "server", access: "public", optional: false }),
-      ASTRO_DB_APP_TOKEN: envField.string({ context: "server", access: "secret" })
+      ASTRO_DB_APP_TOKEN: envField.string({ context: "server", access: "secret", optional: false }),
+      STRIPE_SECRET_KEY: envField.string({ context: "server", access: "secret", optional: false })
     }
   }
 });

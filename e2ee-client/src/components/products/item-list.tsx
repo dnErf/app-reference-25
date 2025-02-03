@@ -19,6 +19,7 @@ function ItemList(props:Attrs) {
     async function handleAddToCart(item) {
         let items = {
             customerId: userData.id,
+            customerEmail: userData.email,
             cartItems: [...customerCart.cartItems, {
                 productId: item.product_id,
                 title: item.title,
@@ -28,7 +29,7 @@ function ItemList(props:Attrs) {
                 quantity: "1"
             }]
         }
-        
+       
         $customerCart.set(items)
         await actions.addCartItem(items)
     }

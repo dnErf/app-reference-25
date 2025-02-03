@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react"
 import { useStore } from "@nanostores/react"
 import { actions } from "astro:actions"
+import { navigate } from "astro:transitions/client"
 import { nanoid } from "nanoid"
 
 import { $customerCart, $userData } from "@/lib/store"
@@ -8,7 +9,7 @@ import { $customerCart, $userData } from "@/lib/store"
 export { ItemList }
 
 function ItemList() {
-    const { customerId, cartItems } = useStore($customerCart)
+    const { customerId, customerEmail, cartItems } = useStore($customerCart)
     const [ totalPrice, setTotalPrice ] = useState(0.00)
 
     useEffect(() => {
@@ -58,6 +59,7 @@ function ItemList() {
                             id: nanoid(8),
                             orderId: orderId,
                             productId: item.productId,
+                            title: item.title,
                             price: parseFloat(item.price),
                             quantity: parseInt(item.quantity),
                         }))
@@ -67,6 +69,7 @@ function ItemList() {
                         const salesOrder = {
                             orderId: orderId,
                             customerId: customerId,
+                            customerEmail: customerEmail,
                             paymentId: "",
                             items: salesItems,
                             totalAmount: totalPrice,
@@ -76,6 +79,10 @@ function ItemList() {
                         // checkout
                         const resultData = await actions.checkOutCart(salesOrder)
                         console.log(resultData)
+
+                        if (resultData) {
+                            navigate(resultData.data.stripeSessionUrl)
+                        }
                     }}
                 >
                     confirm purchase

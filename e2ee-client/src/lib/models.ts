@@ -49,6 +49,7 @@ export type CartItemAttrs = z.infer<typeof CartItem>
 
 export const CustomerCart = z.object({
     customerId: z.string(),
+    customerEmail: z.string(),
     cartItems: z.array(CartItem).or(z.any()),
 })
 
@@ -58,6 +59,7 @@ export const SalesItem = z.object({
     id: z.string(),
     orderId: z.string(),
     productId: z.string(),
+    title: z.string(),
     price: z.number(),
     quantity: z.number(),
 })
@@ -68,6 +70,7 @@ export type SalesItemAttrs = z.infer<typeof SalesItem>
 export const SalesOrder = z.object({
     orderId: z.string(),
     customerId: z.string(),
+    customerEmail: z.string(),
     paymentId: z.string(),
     items: z.array(SalesItem),
     totalAmount: z.number(),

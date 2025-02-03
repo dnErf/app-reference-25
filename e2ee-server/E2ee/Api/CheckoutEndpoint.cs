@@ -9,14 +9,21 @@ public static class CheckoutEndpoint {
         var ep = builder.MapGroup("api/checkout");
 
         ep.MapPost("", PostCheckout);
+        ep.MapPatch("", PatchPaymentId);
 
         return builder;
     }
 
     private static async Task<IResult> PostCheckout(SalesOrder order, CheckoutService checkoutService) 
     {
-        Console.WriteLine(order.CustomerId);
         await checkoutService.PostOrderHandlerAsync(order);
+        return TypedResults.Ok();
+    }
+
+    private static async Task<IResult> PatchPaymentId(SalesPayment payment, CheckoutService checkoutService)
+    {
+        Console.WriteLine($"payment id  ~ {payment.PaymentId}");
+        await checkoutService.PatchSalesPaymentHandlerAsync(payment);
         return TypedResults.Ok();
     }
 }

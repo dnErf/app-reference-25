@@ -1,0 +1,34 @@
+---
+import { E2EE_SERVER, STRIPE_SECRET_KEY } from "astro:env/server"
+import Stripe from "stripe"
+
+const sessionId = Astro.url.searchParams.get("session_id")
+const stripe = new Stripe(STRIPE_SECRET_KEY)
+const stripeSession = await stripe.checkout.sessions.retrieve(sessionId, { expand: ["payment_intent.payment_method"] })
+const lineItems = await stripe.checkout.sessions.listLineItems(sessionId, { expand: ["data.price.product"] })
+
+// or
+// const result = Promise.all([ stripe.checkout.sessions.retrieve(), stripe.checkout.sessions.listLineItems() ])
+
+// console.log("== stripe session")
+// console.log(stripeSession)
+// console.log("== lineItems")
+// console.dir(lineItems, { depth: null })
+
+const responseData = await fetch(`${E2EE_SERVER}/api/checkout`, {
+    method: "PATCH",
+    headers: {
+        "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+        orderId: stripeSession.metadata.oid,
+        paymentId: typeof stripeSession.payment_intent === 'string' 
+            ? stripeSession.payment_intent 
+            : stripeSession.payment_intent.id
+    })
+})
+console.log(responseData.status === 200)
+
+// TODO if not 200
+
+---
