@@ -1,9 +1,11 @@
 import type { ProductAttrs } from "@/lib/models"
 import { actions } from "astro:actions"
 import { DIRECTUS_URL } from "astro:env/client"
+import { useState } from "react"
 import { useStore } from "@nanostores/react"
 
 import { $customerCart, $userData } from "@/lib/store"
+import { Toaster } from "@/components/toaster.tsx"
 
 export { ItemList }
 
@@ -15,6 +17,7 @@ function ItemList(props:Attrs) {
     const { products } = props
     const customerCart = useStore($customerCart)
     const userData = useStore($userData)
+    const [ toast, setToast ] = useState([])
     
     async function handleAddToCart(item) {
         let items = {
@@ -32,6 +35,7 @@ function ItemList(props:Attrs) {
        
         $customerCart.set(items)
         await actions.addCartItem(items)
+        setToast([...toast, { productId: item.product_id }])
     }
 
     return (
@@ -41,6 +45,13 @@ function ItemList(props:Attrs) {
                 <Items key={item.product_id} product={item} handleAddToCart={handleAddToCart} />
             ))
         }
+            <div>
+            {
+                !toast.length && toast.map((item) => (
+                    <Toaster id={item.productId} />
+                ))
+            }
+            </div>
         </div>
     )
 }
