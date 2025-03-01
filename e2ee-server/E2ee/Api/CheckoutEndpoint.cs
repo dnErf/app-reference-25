@@ -1,3 +1,4 @@
+using System.Threading.Channels;
 using Microsoft.AspNetCore.Mvc;
 using E2ee.Models;
 
@@ -14,16 +15,18 @@ public static class CheckoutEndpoint {
         return builder;
     }
 
-    private static async Task<IResult> PostCheckout(SalesOrder order, CheckoutService checkoutService) 
+    private static async Task<IResult> PostCheckout(SalesOrder order, CheckoutService checkoutService, Channel<RedisDataEvent> channel) 
     {
         await checkoutService.PostOrderHandlerAsync(order);
+        await channel.Writer.WriteAsync(new RedisDataEvent { subject = order.OrderId, action = "POST_ORDER" });
         return TypedResults.Ok();
     }
 
-    private static async Task<IResult> PatchPaymentId(SalesPayment payment, CheckoutService checkoutService)
+    private static async Task<IResult> PatchPaymentId(SalesPayment payment, CheckoutService checkoutService, Channel<RedisDataEvent> channel)
     {
         Console.WriteLine($"payment id  ~ {payment.PaymentId}");
         await checkoutService.PatchSalesPaymentHandlerAsync(payment);
+        await channel.Writer.WriteAsync(new RedisDataEvent { subject = payment.OrderId,  action = "PATCH_ORDER_PAYMENT" });
         return TypedResults.Ok();
     }
 }

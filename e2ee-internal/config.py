@@ -7,6 +7,7 @@ class Config(BaseSettings):
     MEMORY_DB: str
     AUTH_SECRET: str
     E2EE_SERVER: str
+    REDIS_SERVER: str
     model_config = SettingsConfigDict(env_file=".env")
     
 cfg = Config()
