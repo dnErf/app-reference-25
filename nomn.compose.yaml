@@ -1,0 +1,55 @@
+version: "3.7"
+
+services:
+  dagster-nomn:
+    build:
+      context: .
+      dockerfile: nomn-worker/Dockerfile
+    image: dagster_nomn
+    restart: always
+    environment:
+      DAGSTER_POSTGRES_USER: "{{POSTGRES_USER}}"
+      DAGSTER_POSTGRES_PASSWORD: "{{POSTGRES_PASSWORD}}"
+      DAGSTER_POSTGRES_DB: "dagster"
+      DAGSTER_CURRENT_IMAGE: "dagster_nomn"
+
+  dagster-webserver:
+    build:
+      context: .
+      dockerfile: nomn-dagster/Dockerfile
+    entrypoint:
+      - dagster-webserver
+      - -h
+      - "0.0.0.0"
+      - -p
+      - "3000"
+      - -w
+      - workspace.yaml
+    expose:
+      - "3000"
+    ports:
+      - "3000:3000"
+    environment:
+      DAGSTER_POSTGRES_USER: "{{POSTGRES_USER}}"
+      DAGSTER_POSTGRES_PASSWORD: "{{POSTGRES_PASSWORD}}"
+      DAGSTER_POSTGRES_DB: "dagster"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /tmp/io_manager_storage:/tmp/io_manager_storage
+
+  dagster-daemon:
+    build:
+      context: .
+      dockerfile: nomn-dagster/Dockerfile
+    entrypoint:
+      - dagster-daemon
+      - run
+    container_name: docker_example_daemon
+    restart: on-failure
+    environment:
+      DAGSTER_POSTGRES_USER: "{{POSTGRES_USER}}"
+      DAGSTER_POSTGRES_PASSWORD: "{{POSTGRES_PASSWORD}}"
+      DAGSTER_POSTGRES_DB: "dagster"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /tmp/io_manager_storage:/tmp/io_manager_storage
