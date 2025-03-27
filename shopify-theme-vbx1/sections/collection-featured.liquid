@@ -1,0 +1,33 @@
+
+{% javascript %}
+{% endjavascript %}
+
+{% style %}
+{% endstyle %}
+
+<div>
+    featured collection
+    {% for product in section.settings.collection.products %}
+        {{- product.title | link_to: product.url }}
+    {% endfor %}
+    {% for product in collections['featured-items'].products %}
+        {{- product.title | link_to: product.url }}
+    {% endfor %}
+    <div>
+        hmmm
+    </div>
+</div>
+
+{% schema %}
+{
+    "name": "collection_featured",
+    "tag": "section",
+    "settings": [
+        {
+            "type": "collection",
+            "id": "collection",
+            "label": "featured collection"
+        }
+    ]
+}
+{% endschema %}

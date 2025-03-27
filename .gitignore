@@ -13,6 +13,7 @@ obj/
 .angular/
 .astro/
 .wrangler/
+.shopify/
 __pycache__/
 *.db
 *.duckdb
