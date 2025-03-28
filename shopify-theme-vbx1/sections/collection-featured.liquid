@@ -2,21 +2,22 @@
 {% javascript %}
 {% endjavascript %}
 
-{% style %}
-{% endstyle %}
+{% liquid
+%}
 
 <div>
     featured collection
     {% for product in section.settings.collection.products %}
         {{- product.title | link_to: product.url }}
-    {% endfor %}
-    {% for product in collections['featured-items'].products %}
-        {{- product.title | link_to: product.url }}
+        {% render 'card-product', item: product %}
     {% endfor %}
     <div>
         hmmm
     </div>
 </div>
+
+{% style %}
+{% endstyle %}
 
 {% schema %}
 {
