@@ -1,0 +1,7 @@
+:root {
+    --pxl-8: 8px;
+}
+
+.max-h-400 { max-height: 400px; }
+.min-w-96 { min-width: 96%; }
+.min-w-80 { min-width: 80%; }

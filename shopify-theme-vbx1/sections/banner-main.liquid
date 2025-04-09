@@ -1,0 +1,28 @@
+{% javascript %}
+{% endjavascript %}
+
+{% liquid
+%}
+
+{% if section.settings.banner_image != blank %}
+<div>
+    {{ section.settings.banner_image | image_url: width: 1000 | image_tag: height: 400, class: 'max-h-400 min-w-80' }}
+</div>
+{% endif %}
+
+{% style %}
+{% endstyle %}
+
+{% schema %}
+{
+    "name": "banner_main",
+    "tag": "section",
+    "settings": [
+        {
+            "type": "image_picker",
+            "id": "banner_image",
+            "label": "banner image"
+        }
+    ]
+}
+{% endschema %}

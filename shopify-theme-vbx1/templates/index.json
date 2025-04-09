@@ -9,13 +9,15 @@
  */
 {
   "order": [
-    "header",
+    "banner_main",
     "collection_featured"
   ],
   "sections": {
-    "header": {
-      "type": "header",
-      "settings": {}
+    "banner_main": {
+      "type": "banner-main",
+      "settings": {
+        "banner_image": "shopify://shop_images/womens-hand-charm-bracelet_925x_6ac6095c-fc8e-47af-add8-c69cef781389.jpg"
+      }
     },
     "collection_featured": {
       "type": "collection-featured",
