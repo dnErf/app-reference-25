@@ -14,11 +14,11 @@
         {{ 'style.css' | asset_url | stylesheet_tag }}
         
     </head>
-    <body class="min-w-96">
-        <div>
-            {% sections 'header' %}
-        </div>
-        <main>
+    <body>
+        <section>
+            {% section 'header' %}
+        </section>
+        <main class="w92">
             {{ content_for_layout }}
         </main>
         <script src="{{ "flowbite.min.js" | asset_url }}" defer="defer"></script>

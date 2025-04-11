@@ -1,11 +1,57 @@
 {% javascript %}
 {% endjavascript %}
 
+<nav class="bg-white border-gray-200 dark:bg-gray-900 text-white">
+    <div class="flex items-center justify-between px-8 py-4">
+        <a href="https://flowbite.com" class="flex items-center space-x-4">
+            {% comment %} <img src="" class="" alt="Logo" /> {% endcomment %}
+            <span class="">Flowbite</span>
+        </a>
+        <div class="w33 relative">
+            <div class="absolute start-0 flex items-center ps-3 inset-y-0">
+                <svg class="w-4 h-4 text-gray-800" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"/>
+                </svg>
+            </div>
+            <input 
+                type="text" 
+                id="search-navbar" 
+                placeholder="Search..."
+                class="block p-2 text-gray-800 text-sm rounded-md ps-10"
+                style="width: 100%;" 
+            >
+        </div>
+        <div class="">
+            <a href="#" class="text-sm">Login</a>
+        </div>
+    </div>
+</nav>
+<nav class="bg-gray-50 dark:bg-gray-700">
+    <div class="max-w-screen-xl px-4 py-3 mx-auto">
+        <div class="flex items-center">
+            <ul class="flex flex-row font-medium mt-0 space-x-8 rtl:space-x-reverse text-sm">
+                <li>
+                    <a href="#" class="text-gray-900 dark:text-white hover:underline" aria-current="page">Home</a>
+                </li>
+                <li>
+                    <a href="#" class="text-gray-900 dark:text-white hover:underline">Company</a>
+                </li>
+                <li>
+                    <a href="#" class="text-gray-900 dark:text-white hover:underline">Team</a>
+                </li>
+                <li>
+                    <a href="#" class="text-gray-900 dark:text-white hover:underline">Features</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
 <style>
 </style>
 
 {% schema %}
 {
-    "name": "t:sections.header.name"
+    "name": "header"
 }
 {% endschema %}

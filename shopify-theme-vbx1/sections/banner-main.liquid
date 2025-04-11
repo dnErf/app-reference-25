@@ -5,8 +5,8 @@
 %}
 
 {% if section.settings.banner_image != blank %}
-<div>
-    {{ section.settings.banner_image | image_url: width: 1000 | image_tag: height: 400, class: 'max-h-400 min-w-80' }}
+<div class="block">
+    {% comment %} {{ section.settings.banner_image | image_url: width: 1000 | image_tag: height: 400, class: 'max-h-400 min-w-80' }} {% endcomment %}
 </div>
 {% endif %}
 
