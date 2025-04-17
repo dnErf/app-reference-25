@@ -5,8 +5,9 @@
 %}
 
 {% if section.settings.banner_image != blank %}
-<div class="block">
-    {% comment %} {{ section.settings.banner_image | image_url: width: 1000 | image_tag: height: 400, class: 'max-h-400 min-w-80' }} {% endcomment %}
+<div class="flex justify-center w-full text-center">
+    {% comment %} add src set {% endcomment %}
+    <img src="{{ section.settings.banner_image | image_url }}" width="" height="" class="h33 w92 p-1" >
 </div>
 {% endif %}
 
@@ -17,6 +18,7 @@
 {
     "name": "banner_main",
     "tag": "section",
+    "class": "my-auto",
     "settings": [
         {
             "type": "image_picker",

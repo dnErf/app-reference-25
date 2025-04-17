@@ -2,6 +2,7 @@
     --pxl-8: 8px;
 }
 
+.h33 { height: 32rem; min-width: 32rem; max-width: 32rem; }
 .max-h-400 { max-height: 400px; }
 
 .w33 { width: 33%; min-width: 33%; max-width: 33%; }
