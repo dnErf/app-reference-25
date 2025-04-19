@@ -1,7 +1,0 @@
-duckdb
-pyiceberg[s3fs,hive,duckdb]
-dagster
-dagster-duckdb
-dagster-webserver
-pyarrow
-pytest
