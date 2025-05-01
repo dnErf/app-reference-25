@@ -1,0 +1,100 @@
+<script>
+const product = {{ product | json }}
+document.querySelectorAll('.product-option input[type="radio"]').forEach((radio) => {
+    radio.addEventListener('change', (e) => {
+        let selectedOptions = []
+        document.querySelectorAll('.product-option input[type="radio"]:checked').forEach((rc) => {
+            selectedOptions.push(rc.value);
+
+            // finding the matched variant
+            let matchedVariant = product.variants.find((variant) => {
+                let p = true;
+                for (let i = 0; i < selectedOptions.length; i++) {
+                    if (selectedOptions.indexOf(variant.options[i]) === -1) {
+                        p = false;
+                        break;
+                    }
+                }
+                return p;
+            });
+
+            // change product form variant id
+            document.querySelector('#product-id').value = matchedVariant.id
+
+            // change url
+            // https://www.jsdelivr.com/package/npm/url-parse
+            let url = new URLParse(window.location.href, true)
+            url.query.vairant = matchedVariant.id
+            window.history.replaceState(null, null, url.toString())
+
+            // change price
+            document.querySelector('.product-price').textContent = ""
+            document.querySelector('.product-compare').textContent = ""
+
+            // change button
+            let addBtn = document.querySelector('#add-to-cart')
+            if (matchedVariant.available) {
+                addBtn.textContent = "add to cart"
+                add.disabled = false
+            }
+            else {
+                addBtn.textContent = "out of stock"
+                add.disabled = true
+            }
+        })
+    })
+})
+
+document.querySelector('#buy-it-now').addEventListener('click', (e) => {
+    e.preventDefault()
+    let form = document.querySelector('.shopify-product-form')
+    // <input type="hidden" name="return_to" value="/checkout/" >
+    let input = document.createElement('input')
+    input.value = "/checkout"
+    input.type = "hidden"
+    input.name = "return_to"
+    form.appendChild(input)
+    form.submit()
+})
+</script>
+{% form 'product', product %}
+<input type="hidden" id="product-id" name="id" value={{ product.selected_or_first_available_variant }}>
+
+{% if product.variants.size > 1 %}
+<div class="product-option">
+    {% for option in product.options_with_values %}
+        <fieldset>
+            <legend>{{ option.name }}</legend>
+            {% for value in option.values %}
+                <div>
+                    <input
+                        type="radio"
+                        {% if option.selected_value == value %} checked {% endif %}
+                        id="{{ option.name | handlize }}-{{ value | handlize }}"
+                        name="{{ option.name }}"
+                        value="{{ value }}"
+                    >
+                    <label for="{{ option.name | handlize }}-{{ value | handlize }}">
+                        {{ value }}
+                    </label>
+                </div>
+            {% endfor %}
+        </fieldset>
+    {% endfor %}
+</div>
+{% endif %}
+<button type="submit" id="add-to-cart" class="product-add">
+    {% if product.selected_or_first_available_variant.available %}
+        add to cart
+    {% else %}
+        out of stock
+    {% endif %}
+</button>
+<button id="but-it-now" class="product-add">
+    {% if product.selected_or_first_available_variant.available %}
+        add to cart
+    {% else %}
+        out of stock
+    {% endif %}
+</button>
+{% endform %}
