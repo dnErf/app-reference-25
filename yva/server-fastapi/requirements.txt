@@ -1,0 +1,8 @@
+requests
+fastapi[standard]
+sqlmodel
+SQLAlchemy
+SQLAlchemy-Utils
+pydantic
+pydantic-settings
+psycopg[binary,pool]
