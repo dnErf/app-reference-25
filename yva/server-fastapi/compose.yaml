@@ -1,18 +1,9 @@
 services:
-  yva-server:
+  server:
     build:
       context: .
-      dockerfile: Dockerfile
+    ports:
+      - 8000:8000
     env_file:
       - .env
-    ports:
-      - "8000:8000"
-    develop:
-      watch:
-        - action: rebuild
-          path: Dockerfile
-        - action: rebuild
-          path: requirements.txt
-        - action: rebuild
-          path: compose.yaml
-    command: fastapi run
+
