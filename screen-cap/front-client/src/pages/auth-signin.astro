@@ -1,0 +1,26 @@
+---
+import Base from "../layouts/Base.astro"
+---
+<script>
+import { createAuthClient } from "better-auth/client"
+const better_auth_client = createAuthClient()
+
+document.querySelector("#auth-signin")
+    ?.addEventListener("click", () => {
+        return better_auth_client.signIn.social({ provider: "github" })
+            .then(() => console.log("sign in"))
+            .catch(() => console.error("auth failed"));
+    })
+</script>
+
+<Base>
+    <main>
+        <aside>
+            <button
+                id="auth-signin"
+            >
+                sign in with Github
+            </button>
+        </aside>
+    </main>
+</Base>

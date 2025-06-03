@@ -1,0 +1,33 @@
+---
+import "../styles/global.css"
+import { ClientRouter } from "astro:transitions"
+
+const authSession = () => {
+	if (Astro.locals.session) {
+		return Astro.locals.session
+	}
+	else {
+		return Astro.redirect("/login")
+	}
+}
+
+console.log(authSession())
+
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<title>Astro</title>
+        <ClientRouter />
+	</head>
+	<body>
+        <main>
+            <slot />
+        </main>
+	</body>
+</html>
+
