@@ -1,7 +1,21 @@
 ---
+import { zample } from "../lib/directus.ts"
+
 import Base from "../layouts/Base.astro"
+
+import { VideoPlayer } from "../components/VideoPlayer"
+import RecordScreen from "../components/RecordScreen" 
+
+const result = await zample.test()
+console.log("===")
+console.log(result)
+console.log("===")
+
 ---
 
 <Base>
     Hello
+    <div>
+        <RecordScreen client:only="react" />
+    </div>
 </Base>

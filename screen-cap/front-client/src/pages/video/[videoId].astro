@@ -1,0 +1,14 @@
+---
+import Base from "../../layouts/Base.astro"
+
+import { VideoPlayer } from "../../components/VideoPlayer"
+
+console.dir(Astro.params)
+const { videoId } = Astro.params
+
+---
+
+<Base>
+    video id :  { videoId }
+    <VideoPlayer id={videoId} client:only="react" />
+</Base>
